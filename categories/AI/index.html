@@ -82,7 +82,7 @@
 <meta name="description" content="my blog">
 <meta property="og:type" content="website">
 <meta property="og:title" content="鲸落落落落落">
-<meta property="og:url" content="http://whalefall.xyz/index.html">
+<meta property="og:url" content="http://whalefall.xyz/categories/AI/index.html">
 <meta property="og:site_name" content="鲸落落落落落">
 <meta property="og:description" content="my blog">
 <meta property="og:locale" content="zh-Hans">
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://whalefall.xyz/"/>
+  <link rel="canonical" href="http://whalefall.xyz/categories/AI/"/>
 
 
 
 
 
-  <title>鲸落落落落落</title>
+  <title>分类: AI | 鲸落落落落落</title>
   
 
 
@@ -143,8 +143,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -237,162 +236,56 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
-    
+
+  
+  
+  
+  <div class="post-block category">
+
+    <div id="posts" class="posts-collapse">
+      <div class="collection-title">
+        <h2>AI<small>分类</small>
+        </h2>
+      </div>
+
       
-
-  
-
-  
-  
-  
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://whalefall.xyz/2018/02/11/TersonFlow AI图像识别总结/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="兜子">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="鲸落落落落落">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h3 class="post-title">
         
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/11/TersonFlow AI图像识别总结/" itemprop="url">TersonFlow AI图像识别总结</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
+            <a class="post-title-link" href="/2018/02/11/TersonFlow AI图像识别总结/" itemprop="url">
               
-                <span class="post-meta-item-text">发表于</span>
+                <span itemprop="name">TersonFlow AI图像识别总结</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-11T11:49:29+08:00">
-                2018-02-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/" itemprop="url" rel="index">
-                    <span itemprop="name">AI</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>最近在学习AI图像识别在Android 中的使用，看了非常多的资料，自己整理一下从训练模型到客户端使用训练好的模型进行图像识别的过程。</p>
-<h2 id="什么是AI"><a href="#什么是AI" class="headerlink" title="什么是AI"></a>什么是AI</h2><blockquote>
-<p>人工智能（Artificial Intelligence），是计算机科学的一个分支，它企图了解智能的实&gt; 质，并生产出一种新的能以人类智能相似的方式做出反应的智能机器，该领域的研究包括机&gt; 器人、语言识别、图像识别、自然语言处理和专家系统等。</p>
-</blockquote>
-<h2 id="AI的使用场景"><a href="#AI的使用场景" class="headerlink" title="AI的使用场景"></a>AI的使用场景</h2><p>从目前来看，我们可以利用AI进行语音识别、语音合成、文字识别、人脸识别、机器翻译、图像识别等的一些操作应用。比如，2018年央视纪录片《创新中国》，就是世界首部利用人工智能模拟人声完成配音的大型纪录片，节目解说部分全程运用人工智能配音，已逝“配音大师”李易的声音将在信息技术的支持下“重现”。</p>
-<h2 id="人工智能的实现——机器学习和神经网络（CNN）"><a href="#人工智能的实现——机器学习和神经网络（CNN）" class="headerlink" title="人工智能的实现——机器学习和神经网络（CNN）"></a>人工智能的实现——机器学习和神经网络（CNN）</h2><p>机器学习是目前实现人工智能的最主要的方式，而神经网络是一种模拟人脑，取其精华取其精华去其糟粕的计算架构，利用神经网络进行机器学习，则让计算机不再只是执行命令的机器,具有了一定程度上举一反三的能力，这种能力就是人工智能。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/02/11/TersonFlow AI图像识别总结/#more" rel="contents">
-              阅读全文 &raquo;
             </a>
-          </div>
-          <!--/noindex-->
         
+      </h3>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2018-02-11T11:49:29+08:00"
+              content="2018-02-11" >
+          02-11
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
       
     </div>
-    
-    
-    
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
   
   
   
-  </article>
-
-
-    
-  </section>
 
   
+
 
 
           </div>

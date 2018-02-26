@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-GitHub -hexo," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近在学习AI图像识别在Android 中的使用，看了非常多的资料，自己整理一下从训练模型到客户端使用训练好的模型进行图像识别的过程。 什么是AI 人工智能（Artificial Intelligence），是计算机科学的一个分支，它企图了解智能的实&amp;gt; 质，并生产出一种新的能以人类智能相似的方式做出反应的智能机器，该领域的研究包括机&amp;gt; 器人、语言识别、图像识别、自然语言处理和专家系统等">
+<meta name="keywords" content="-GitHub -hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TersonFlow AI图像识别总结">
+<meta property="og:url" content="http://whalefall.xyz/2018/02/11/TersonFlow AI图像识别总结/index.html">
+<meta property="og:site_name" content="鲸落落落落落">
+<meta property="og:description" content="最近在学习AI图像识别在Android 中的使用，看了非常多的资料，自己整理一下从训练模型到客户端使用训练好的模型进行图像识别的过程。 什么是AI 人工智能（Artificial Intelligence），是计算机科学的一个分支，它企图了解智能的实&amp;gt; 质，并生产出一种新的能以人类智能相似的方式做出反应的智能机器，该领域的研究包括机&amp;gt; 器人、语言识别、图像识别、自然语言处理和专家系统等">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-26T08:18:02.675Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TersonFlow AI图像识别总结">
+<meta name="twitter:description" content="最近在学习AI图像识别在Android 中的使用，看了非常多的资料，自己整理一下从训练模型到客户端使用训练好的模型进行图像识别的过程。 什么是AI 人工智能（Artificial Intelligence），是计算机科学的一个分支，它企图了解智能的实&amp;gt; 质，并生产出一种新的能以人类智能相似的方式做出反应的智能机器，该领域的研究包括机&amp;gt; 器人、语言识别、图像识别、自然语言处理和专家系统等">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://whalefall.xyz/2018/02/11/TersonFlow AI图像识别总结/"/>
+
+
+
+
+
+  <title>TersonFlow AI图像识别总结 | 鲸落落落落落</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">鲸落落落落落</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">The thing is, it's very easy to be different, but very difficult to be better.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://whalefall.xyz/2018/02/11/TersonFlow AI图像识别总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="兜子">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="鲸落落落落落">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">TersonFlow AI图像识别总结</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-11T11:49:29+08:00">
+                2018-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AI/" itemprop="url" rel="index">
+                    <span itemprop="name">AI</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/11/TersonFlow AI图像识别总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/02/11/TersonFlow AI图像识别总结/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在学习AI图像识别在Android 中的使用，看了非常多的资料，自己整理一下从训练模型到客户端使用训练好的模型进行图像识别的过程。</p>
+<h2 id="什么是AI"><a href="#什么是AI" class="headerlink" title="什么是AI"></a>什么是AI</h2><blockquote>
+<p>人工智能（Artificial Intelligence），是计算机科学的一个分支，它企图了解智能的实&gt; 质，并生产出一种新的能以人类智能相似的方式做出反应的智能机器，该领域的研究包括机&gt; 器人、语言识别、图像识别、自然语言处理和专家系统等。</p>
+</blockquote>
+<h2 id="AI的使用场景"><a href="#AI的使用场景" class="headerlink" title="AI的使用场景"></a>AI的使用场景</h2><p>从目前来看，我们可以利用AI进行语音识别、语音合成、文字识别、人脸识别、机器翻译、图像识别等的一些操作应用。比如，2018年央视纪录片《创新中国》，就是世界首部利用人工智能模拟人声完成配音的大型纪录片，节目解说部分全程运用人工智能配音，已逝“配音大师”李易的声音将在信息技术的支持下“重现”。</p>
+<h2 id="人工智能的实现——机器学习和神经网络（CNN）"><a href="#人工智能的实现——机器学习和神经网络（CNN）" class="headerlink" title="人工智能的实现——机器学习和神经网络（CNN）"></a>人工智能的实现——机器学习和神经网络（CNN）</h2><p>机器学习是目前实现人工智能的最主要的方式，而神经网络是一种模拟人脑，取其精华取其精华去其糟粕的计算架构，利用神经网络进行机器学习，则让计算机不再只是执行命令的机器,具有了一定程度上举一反三的能力，这种能力就是人工智能。<br><a id="more"></a></p>
+<h2 id="AI深度学习移动端开源框架"><a href="#AI深度学习移动端开源框架" class="headerlink" title="AI深度学习移动端开源框架"></a>AI深度学习移动端开源框架</h2><p>以上总结了这么多概念性的东西，是为了方便我们理解AI和实现AI的方法。目前AI深度学习移动端的开源框架，主要有几种，百度MDL（Mobile-deep-learning），腾讯NCNN，还有Google的TersorFlow,在这里，我选取了TensorFlow作为技术模型框架。<br>TensorFlow是google开发的一个深度学习系统，我们可以通过Tensorflow Mobile API在移动端和嵌入式上部署模型，近几年来，由于其作为机器学习模型的使用已成倍增长，所以移动设备和嵌入式设备也出现了部署需求。Google又推出了更轻量级的TensorFlow Lite，针对移动设备进行了优化，使机器学习模型设备能够实现低延迟的推理。<br>TensorFlow Lite更是与Android 8.1中发布的神经网络API完美配合使用。目前国内很多家公司也都在使用TensorFlow,比如小米，京东，网易，英语流利说等。</p>
+<h2 id="为什么要在手机上运行TensorFlow"><a href="#为什么要在手机上运行TensorFlow" class="headerlink" title="为什么要在手机上运行TensorFlow?"></a>为什么要在手机上运行TensorFlow?</h2><p>一般AI识别的流程，是首先在服务器端训练模型=&gt;客户端封装数据流请求=&gt;服务器处理数据识别=&gt;最后返回客户端处理结果，而通过网络连接发送设备访问的所有数据可能非常昂贵和耗时。在移动设备上运行使得App在不得不等待网络往返的情况下进行交互。所以需要把识别的工作放在本地操作，可以提高AI处理的速度和用户体验。</p>
+<h2 id="为什么叫TensorFlow？"><a href="#为什么叫TensorFlow？" class="headerlink" title="为什么叫TensorFlow？"></a>为什么叫TensorFlow？</h2><p>Tensor<em>（张量，代表N维数组），Flow</em>（流，代表基于数据流图的是计算），把N维数字从流图的一端流动到另一端的过程，就是人工智能神经网络进行分析和处理的过程</p>
+<h2 id="Object-Detection-API组件"><a href="#Object-Detection-API组件" class="headerlink" title="Object Detection API组件"></a>Object Detection API组件</h2><p>要想实现图像识别，我们可以借助TensorFlow其中一个工具，Object Detection API（对象探测API）组件，我们可以通过训练神经网络，借助这个对象探测API识别一个框架中的物体，Object Detection API中提供了5种网络结构的预训练的权重，全部基于coco图片训练集。<br>这里讲的coco（Common Objects in Context），其实是微软团队提供的一个可以用来进行图像识别的图片数据集。</p>
+<h2 id="TensorFlow安装训练环境搭建"><a href="#TensorFlow安装训练环境搭建" class="headerlink" title="TensorFlow安装训练环境搭建"></a>TensorFlow安装训练环境搭建</h2><p>关于训练环境的搭建这里就不多说了，网上可以找到很详细的步骤。我整理了一下大致的步骤和所需要安装的模块。</p>
+<ul>
+<li>python安装和配置</li>
+<li>安装pillow（python的图片处理模块PIL），matplotlib（Python 的 2D绘图库），lxml（用来处理 XML 的第三方 Python 库）</li>
+<li><p>通过PIP命令安装tensorFlow  </p>
+<pre><code>pip install tensorflow
+</code></pre></li>
+<li><p>下载TensorFlow的源码<br>编译源码需要NDK、Bazel工具</p>
+</li>
+<li><p>下载TensorFlow模型源码<br><a href="https://github.com/tensorflow/models" target="_blank" rel="noopener">https://github.com/tensorflow/models</a></p>
+</li>
+<li><p>安装Google的 Protocol Buffer<br>这是一种轻便高效的结构化数据存储格式</p>
+</li>
+<li><p>解压模型源码<br>在models/research/目录下执行protoc object_detection/protos/*.proto –python_out=.，编译Protobuf文件，生成py文件.</p>
+</li>
+</ul>
+<h2 id="开始训练自己的数据集"><a href="#开始训练自己的数据集" class="headerlink" title="开始训练自己的数据集"></a>开始训练自己的数据集</h2><h3 id="收集样本图片"><a href="#收集样本图片" class="headerlink" title="收集样本图片"></a>收集样本图片</h3><p>在开始训练自己的模型前，我们首先要收集样本图片，这里我准备通过机器学习训练模型识别人体器官——手的一个训练集。所以，我们可以通过一些插件或者工具收集各种各样关于手部的一个图片集。收集样本图片，可以使用chrome的插件Fatkun Batch Download Image，也可以使用ImageNet <a href="http://www.image-net.org/" target="_blank" rel="noopener">http://www.image-net.org/</a> ，这是目前世界是图像识别最大的数据库。</p>
+<h3 id="标记样本图片识别特征"><a href="#标记样本图片识别特征" class="headerlink" title="标记样本图片识别特征"></a>标记样本图片识别特征</h3><p>在完成样本图片的收集后，我们需要在每张样本图片中标记出我们要识别的物体的特征范围，以便机器学习。同样，我们也可以借助工具完成，在windows上，我们可以使用labelImg标注工具，而在Mac OS上，我们可以使用RectLabel标注工具进行样本图片特征的标注，无论使用哪个工具，标注完图片特后，都会生成一份对应图片的xml格式的文件，这个xml就是图片识别特征的相关信息了，比如识别的范围，坐标，大小等。</p>
+<h3 id="数据格式转换"><a href="#数据格式转换" class="headerlink" title="数据格式转换"></a>数据格式转换</h3><p>我们需要将标记完生成的xml文件转换为csv格式的文件，然后将csv格式的文件转换喂TensorFlow可以识别读取的TFRecord格式的文件。接着，我们就可以创建标签分类的配置文件label_map.pbtxt了。</p>
+<h3 id="使用预训练模型"><a href="#使用预训练模型" class="headerlink" title="使用预训练模型"></a>使用预训练模型</h3><p>深度学习成功的一个关键性因素就是大量带标签数据组成的训练集，我们实际训练的数据集过少，引入迁移学习fine-tuning（微调）的思想，对预训练模型进行微调，应用到自己的数据集上，形成自己的CNN（神经网络）。预训练的模型具有非常强大的泛化能力，这些预训练的模型的中间层包含非常多一般性的视觉元素，我们只需要对他的后几层进行微调，再应用到我们的数据上，通常就可以得到非常好的结果。</p>
+<h3 id="选择适当的预训练模型"><a href="#选择适当的预训练模型" class="headerlink" title="选择适当的预训练模型"></a>选择适当的预训练模型</h3><p>我们可以在  </p>
+<ul>
+<li><a href="https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md" target="_blank" rel="noopener">https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md</a>  </li>
+</ul>
+<p>上选择一个适当的预训练模型下载到电脑上。我们在这里选择了ssd_mobilenet_v1_coco作为我们的预训练模型，在这里，我们先看两个概念</p>
+<ul>
+<li>SSD：single shot multibox detector，基于单一前馈神经网络的神经网络结构</li>
+<li>MobileNet：卷积神经网络特征提取器，它们在手机上运行，计算消耗小、运行速度快，因此很适合在移动端上做应用</li>
+</ul>
+<p>下载完预训练模型并解压后，我需要找到并修改ssd_mobilenet_v1_coco.config配置文件，我们可以修改num_classes，fine_tune_checkpoint，train_input_reader，eval_input_reader等这些配置要素。</p>
+<h3 id="开始训练模型"><a href="#开始训练模型" class="headerlink" title="开始训练模型"></a>开始训练模型</h3><p>我们需要通过python脚本开始训练我们的模型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python object_detection/train.py --train_dir object_detection/train --pipeline_config_path C:/ai/tensorflow/models/research/test/data/ssd_mobilenet_v1_coco.config</span><br></pre></td></tr></table></figure></p>
+<p>训练的过程可以使用TensorBoard可视化web监控系统查看精确度，总损失等图表绘制结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir=C:/ai</span><br></pre></td></tr></table></figure></p>
+<p>通过训练后生成的模型文件，生成pd文件，我们把pd文件导入官方提供的demo android studio项目的assets文件夹中，运行看看效果吧。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/GitHub-hexo/" rel="tag"># -GitHub -hexo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">兜子</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/mcdull525" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是AI"><span class="nav-number">1.</span> <span class="nav-text">什么是AI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AI的使用场景"><span class="nav-number">2.</span> <span class="nav-text">AI的使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#人工智能的实现——机器学习和神经网络（CNN）"><span class="nav-number">3.</span> <span class="nav-text">人工智能的实现——机器学习和神经网络（CNN）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AI深度学习移动端开源框架"><span class="nav-number">4.</span> <span class="nav-text">AI深度学习移动端开源框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要在手机上运行TensorFlow"><span class="nav-number">5.</span> <span class="nav-text">为什么要在手机上运行TensorFlow?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么叫TensorFlow？"><span class="nav-number">6.</span> <span class="nav-text">为什么叫TensorFlow？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-Detection-API组件"><span class="nav-number">7.</span> <span class="nav-text">Object Detection API组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TensorFlow安装训练环境搭建"><span class="nav-number">8.</span> <span class="nav-text">TensorFlow安装训练环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始训练自己的数据集"><span class="nav-number">9.</span> <span class="nav-text">开始训练自己的数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#收集样本图片"><span class="nav-number">9.1.</span> <span class="nav-text">收集样本图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标记样本图片识别特征"><span class="nav-number">9.2.</span> <span class="nav-text">标记样本图片识别特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据格式转换"><span class="nav-number">9.3.</span> <span class="nav-text">数据格式转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用预训练模型"><span class="nav-number">9.4.</span> <span class="nav-text">使用预训练模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择适当的预训练模型"><span class="nav-number">9.5.</span> <span class="nav-text">选择适当的预训练模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始训练模型"><span class="nav-number">9.6.</span> <span class="nav-text">开始训练模型</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">兜子</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
